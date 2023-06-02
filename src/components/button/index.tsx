@@ -6,7 +6,7 @@ interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {}
 
-const buttonVariants = cva("p-4", {
+const buttonVariants = cva("p-4 rounded-sm", {
   variants: {
     intent: {
       primary: [
@@ -14,6 +14,8 @@ const buttonVariants = cva("p-4", {
         "text-white",
         "border-transparent",
         "hover:bg-blue-600",
+        "disabled:bg-slate-500",
+        "transition-colors",
       ],
       secondary: [
         "bg-white",
