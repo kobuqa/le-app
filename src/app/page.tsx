@@ -19,7 +19,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const makeQuery = (ctx: string, wrd: string) =>
-    `What is '${wrd}' word meaning in context '${ctx}' in ${lang}?`;
+    `Translate word or phrase '${wrd}' based on context: '${ctx}' in ${lang} language`;
   const translate = async () => {
     setLoading(true);
     try {
