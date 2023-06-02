@@ -23,16 +23,18 @@ export default function RootLayout({
   useEffect(() => {
     document.addEventListener("gesturestart", function (e) {
       e.preventDefault();
+      //@ts-ignore
       document.body.style.zoom = 0.99;
     });
 
     document.addEventListener("gesturechange", function (e) {
       e.preventDefault();
-
+      //@ts-ignore
       document.body.style.zoom = 0.99;
     });
     document.addEventListener("gestureend", function (e) {
       e.preventDefault();
+      //@ts-ignore
       document.body.style.zoom = 1;
     });
   }, []);

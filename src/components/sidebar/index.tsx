@@ -4,9 +4,8 @@ import { NavLink } from "../navlink";
 
 export const SideBar = (props: any) => {
   return (
-    // Pass on our props
     <Menu {...props}>
-      <span>Learn App</span>
+      <span>Twigo Learn</span>
       <NavLink path="/" onClick={props.close}>
         Add a Card
       </NavLink>
