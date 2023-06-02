@@ -1,17 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
-import { NavLink } from "@/components/navlink";
 import { useSwipeable } from "react-swipeable";
 import { SideBar } from "@/components/sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata = {
+// export const metadata: Metadata = {
 //   title: "Twigo Learn",
 //   description: "Card Learning App",
 // };
@@ -37,6 +35,7 @@ export default function RootLayout({
       //@ts-ignore
       document.body.style.zoom = 1;
     });
+    document.title = "Twigo Learn";
   }, []);
 
   const [isOpen, setOpen] = useState(false);

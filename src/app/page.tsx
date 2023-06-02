@@ -58,58 +58,51 @@ export default function Home() {
   };
 
   return (
-    <>
-      <Head>
-        <title>Twigo Learn</title>
-        <link rel="icon" type="image/png" href="/favicon.ico"></link>
-        <meta name="description" content="Twigo Learn App"></meta>
-      </Head>
-      <section className="flex flex-col h-full gap-6">
-        <span className="text-center text-bold text-xl">Card Creation</span>
-        <label className="flex flex-col">
-          Context
-          <TextArea
-            rows={5}
-            value={context}
-            className="resize-none"
-            onChange={({ target: { value } }) => setContext(value)}
-          />
-        </label>
-        <label className="flex flex-col">
-          Word/Phrase
-          <Input
-            type="text"
-            value={word}
-            onChange={({ target: { value } }) => setWord(value)}
-          />
-        </label>
-        <label className="flex flex-col">
-          Target Language
-          <div className="flex gap-4">
-            <select
-              className="grow p-2 border border-slate-400 rounded-sm"
-              value={lang}
-              onChange={({ target: { value } }) => setLang(value)}
-            >
-              <option value="russian">Russian</option>
-              <option value="hebrew">Hebrew</option>
-            </select>
-            <Button onClick={translate} disabled={loading}>
-              Translate
-            </Button>
-          </div>
-        </label>
-        <label className="flex flex-col">
-          {loading ? (
-            <span>Translating...</span>
-          ) : (
-            <pre className="max-w-full whitespace-pre-wrap">{translation}</pre>
-          )}
-        </label>
-        <Button onClick={save} disabled={loading || !translation}>
-          Save a Card
-        </Button>
-      </section>
-    </>
+    <section className="flex flex-col h-full gap-6">
+      <span className="text-center text-bold text-xl">Card Creation</span>
+      <label className="flex flex-col">
+        Context
+        <TextArea
+          rows={5}
+          value={context}
+          className="resize-none"
+          onChange={({ target: { value } }) => setContext(value)}
+        />
+      </label>
+      <label className="flex flex-col">
+        Word/Phrase
+        <Input
+          type="text"
+          value={word}
+          onChange={({ target: { value } }) => setWord(value)}
+        />
+      </label>
+      <label className="flex flex-col">
+        Target Language
+        <div className="flex gap-4">
+          <select
+            className="grow p-2 border border-slate-400 rounded-sm"
+            value={lang}
+            onChange={({ target: { value } }) => setLang(value)}
+          >
+            <option value="russian">Russian</option>
+            <option value="hebrew">Hebrew</option>
+          </select>
+          <Button onClick={translate} disabled={loading}>
+            Translate
+          </Button>
+        </div>
+      </label>
+      <label className="flex flex-col">
+        {loading ? (
+          <span>Translating...</span>
+        ) : (
+          <pre className="max-w-full whitespace-pre-wrap">{translation}</pre>
+        )}
+      </label>
+      <Button onClick={save} disabled={loading || !translation}>
+        Save a Card
+      </Button>
+    </section>
   );
 }
