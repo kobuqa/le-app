@@ -66,7 +66,7 @@ export default function Home() {
         />
       </label>
       <label className="flex flex-col">
-        Word
+        Word/Phrase
         <Input
           type="text"
           value={word}
