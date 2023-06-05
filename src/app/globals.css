@@ -1,27 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 html {
-  position: fixed;
-  height: 100%;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
-
 body {
-  width: 100vw;
-  height: 100vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-}
-
-.nav-item {
-  @apply py-1 px-2 text-white;
-}
-
-.active {
-  @apply text-slate-400;
+  margin: 0;
+  padding: 0;
+  height: 100svh;
+  overflow: hidden;
+  @apply bg-black text-white;
 }
 
 /* Individual item */
@@ -30,7 +20,7 @@ body {
 
   /* Our sidebar item styling */
   text-decoration: none;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
   color: #d1d1d1;
   transition: color 0.2s;
 }
@@ -53,9 +43,12 @@ body {
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-  background: #373a47;
+  @apply bg-slate-200;
 }
-
+select {
+  color: transparent;
+  -webkit-text-fill-color: white;
+}
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
   height: 24px;
@@ -64,12 +57,12 @@ body {
 
 /* Color/shape of close button cross */
 .bm-cross {
-  background: #bdc3c7;
+  @apply bg-white;
 }
 
 /* General sidebar styles */
 .bm-menu {
-  background: #373a47;
+  @apply bg-blacky;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
 }

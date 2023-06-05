@@ -10,18 +10,14 @@ const buttonVariants = cva("p-4 rounded-sm", {
   variants: {
     intent: {
       primary: [
-        "bg-blue-500",
-        "text-white",
+        "bg-primary",
+        "text-black",
         "border-transparent",
-        "hover:bg-blue-600",
-        "disabled:bg-slate-500",
+        "hover:brightness-75",
+        "active:brightness-50",
+        "disabled:bg-slate-300",
+        "disabled:text-white",
         "transition-colors",
-      ],
-      secondary: [
-        "bg-white",
-        "text-gray-800",
-        "border-gray-400",
-        "hover:bg-gray-100",
       ],
     },
     size: {

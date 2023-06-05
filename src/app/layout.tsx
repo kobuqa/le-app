@@ -48,13 +48,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body
-        className={clsx(
-          `${inter.className}`,
-          "h-screen w-screen flex flex-col"
-        )}
-        id="App"
-      >
+      <body className={clsx(`${inter.className}`, "flex flex-col")} id="App">
         <div
           {...handlers}
           style={{
@@ -71,7 +65,7 @@ export default function RootLayout({
           outerContainerId={"App"}
           close={closeSideBar}
         />
-        <main id="page-wrap" className="grow p-4">
+        <main id="page-wrap" className="grow p-4 h-full overflow-auto">
           {children}
         </main>
       </body>

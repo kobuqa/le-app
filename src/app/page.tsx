@@ -58,50 +58,53 @@ export default function Home() {
   };
 
   return (
-    <section className="flex flex-col h-full gap-6">
-      <span className="text-center text-bold text-xl">Card Creation</span>
-      <label className="flex flex-col">
-        Context
-        <TextArea
-          rows={5}
-          value={context}
-          className="resize-none"
-          onChange={({ target: { value } }) => setContext(value)}
-        />
-      </label>
-      <label className="flex flex-col">
-        Word/Phrase
-        <Input
-          type="text"
-          value={word}
-          onChange={({ target: { value } }) => setWord(value)}
-        />
-      </label>
-      <label className="flex flex-col">
-        Target Language
-        <div className="flex gap-4">
-          <select
-            className="grow p-2 border border-slate-400 rounded-sm"
-            value={lang}
-            onChange={({ target: { value } }) => setLang(value)}
-          >
-            <option value="russian">Russian</option>
-            <option value="hebrew">Hebrew</option>
-          </select>
-          <Button onClick={translate} disabled={loading}>
-            Translate
-          </Button>
-        </div>
-      </label>
-      <label className="flex flex-col">
-        {loading ? (
-          <span>Translating...</span>
-        ) : (
-          <pre className="max-w-full whitespace-pre-wrap">{translation}</pre>
-        )}
-      </label>
+    <section className="flex flex-col h-full overflow-hidden">
+      <span className="text-center text-bold text-xl pb-4">Card Creation</span>
+      <div className="overflow-auto flex flex-col gap-3 h-full pb-4">
+        <label className="flex flex-col">
+          <span className="uppercase text-bold pb-1">Context</span>
+          <TextArea
+            rows={5}
+            value={context}
+            className="resize-none"
+            onChange={({ target: { value } }) => setContext(value)}
+          />
+        </label>
+        <label className="flex flex-col">
+          <span className="uppercase text-bold pb-1">Word/Phrase</span>
+          <Input
+            type="text"
+            value={word}
+            onChange={({ target: { value } }) => setWord(value)}
+          />
+        </label>
+        <label className="flex flex-col">
+          <span className="uppercase text-bold pb-1"> Target Language</span>
+          <div className="flex gap-4">
+            <select
+              className="grow p-2 border border-slate-400 rounded-sm bg-transparent"
+              value={lang}
+              onChange={({ target: { value } }) => setLang(value)}
+            >
+              <option value="russian">Russian</option>
+              <option value="hebrew">Hebrew</option>
+            </select>
+            <Button onClick={translate} disabled={loading}>
+              Translate
+            </Button>
+          </div>
+        </label>
+        <label className="flex flex-col">
+          {loading ? (
+            <span>Translating...</span>
+          ) : (
+            <pre className="max-w-full whitespace-pre-wrap">{translation}</pre>
+          )}
+        </label>
+      </div>
+
       <Button onClick={save} disabled={loading || !translation}>
-        Save a Card
+        Save as a Card
       </Button>
     </section>
   );
