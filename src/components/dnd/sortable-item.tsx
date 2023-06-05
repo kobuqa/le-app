@@ -7,7 +7,7 @@ export function Item(props) {
   const { context, word } = props;
 
   return (
-    <div className="w-full h-10 border my-2 rounded-sm p-2">
+    <div className="w-full h-10 border my-2 rounded-sm p-2 overflow-hidden">
       Word: {word} Context: {context}
     </div>
   );
