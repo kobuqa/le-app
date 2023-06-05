@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { Card } from "../cards/page";
 import { Button } from "@/components/button";
-import { AnimatePresence, motion } from "framer-motion";
-import { Input } from "@/components/input";
-import { VscClose } from "react-icons/vsc";
+
+import { MdDelete, MdOutlineEdit, MdPlayCircle } from "react-icons/md";
+import { DeckCreateModal } from "@/components/modals/deck-create";
 
 export type Deck = {
   id: string;
@@ -18,107 +18,49 @@ export default function Decks() {
 
   const [decks, setDecks] = useState<Deck[]>([]);
 
+  const onClose = () => setCreating(false);
+
+  const saveDeck = (newDeck: Deck) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("decks", JSON.stringify([...decks, newDeck]));
+    }
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const decks = localStorage.getItem("decks");
       if (decks) setDecks(JSON.parse(decks));
     }
   }, []);
-  const onClose = () => setCreating(false);
-  const containerMobile = {
-    hidden: { opacity: 0, y: "-100%" },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.3,
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: "100%",
-      transition: {
-        duration: 0.3,
-      },
-    },
-  };
-
-  const saveDeck = () => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem(
-        "decks",
-        JSON.stringify([
-          ...decks,
-          {
-            id: "1",
-            title: "Untitled#1",
-            cards: [
-              {
-                id: `${Math.random()}`,
-                word: "love",
-                context: "What is love?",
-                translation: "Love is strong feel",
-              },
-            ],
-          },
-        ])
-      );
-    }
-  };
 
   return (
-    <section className="flex flex-col h-full">
-      <AnimatePresence>
-        {creating && (
-          <motion.div
-            key="modal"
-            onClick={(e) => e.stopPropagation()}
-            initial="hidden"
-            animate="show"
-            exit="exit"
-            variants={containerMobile}
-            className="z-[1001] absolute top-0 left-0 w-screen h-full border border-primary bg-black p-4 flex flex-col"
+    <section className="flex flex-col h-full overflow-hidden">
+      <DeckCreateModal open={creating} onSave={saveDeck} onClose={onClose} />
+      <span className="text-center text-bold text-xl">Decks</span>
+      <ul className="grid grid-cols-1 my-5 gap-4 overflow-auto pr-2 grow">
+        {decks.map((deck) => (
+          <li
+            key={deck.id}
+            className="rounded-sm border flex flex-col p-4 gap-4 aspect-video"
           >
-            <button className="absolute top-2 right-2" onClick={onClose}>
-              <VscClose />
-            </button>
-            <label>
-              Deck Name
-              <Input value="New Deck #1" className="w-full" />
-            </label>
-            <div className="grow">
-              <span>Manage Cards</span>
-              <div className="flex">
-                <div className="grow border">
-                  <div>
-                    <span>Love</span>
-                  </div>
-                </div>
-                <div className="grow border">
-                  <div>
-                    <span>Not Love</span>
-                  </div>
-                </div>
+            <div className="flex grow">
+              <div className="flex flex-col grow">
+                <span>{deck.title}</span>
+                <span>Cards:{deck.cards.length}</span>
+              </div>
+
+              <div className="flex flex-col gap-4 justify-center">
+                <button>
+                  <MdDelete className="text-red-500 scale-150" />
+                </button>
+                <button>
+                  <MdOutlineEdit className="text-blue-500 scale-150" />
+                </button>
+                <button>
+                  <MdPlayCircle className="text-green-500 scale-150" />
+                </button>
               </div>
             </div>
-            <Button
-              onClick={() => {
-                saveDeck();
-                onClose();
-              }}
-            >
-              Save
-            </Button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <span className="text-center text-bold text-xl">Your Decks</span>
-      <ul className="mt-4 grow">
-        {decks.map((deck) => (
-          <li key={deck.id}>
-            <span>{deck.title}</span>
-            <span>Cards:{deck.cards.length}</span>
           </li>
         ))}
       </ul>

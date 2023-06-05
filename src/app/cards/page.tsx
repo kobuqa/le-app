@@ -25,7 +25,7 @@ export default function Cards() {
         {cards.map((card) => (
           <li
             key={card.id}
-            className="rounded-sm border flex p-4 gap-4 aspect-square"
+            className="rounded-sm border flex p-4 gap-4 aspect-video"
           >
             <div className="flex flex-col gap-2">
               <span className="text-xs">Context: {card.context}</span>

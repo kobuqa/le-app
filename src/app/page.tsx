@@ -53,7 +53,7 @@ export default function Home() {
   const save = () => {
     const rawCards = localStorage.getItem("cards");
     const cards = rawCards ? JSON.parse(rawCards) : [];
-    cards.push({ context, word, translation });
+    cards.push({ id: String(Math.random()), context, word, translation });
     localStorage.setItem("cards", JSON.stringify(cards));
   };
 
