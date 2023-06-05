@@ -5,7 +5,7 @@ import {
   DndContext,
   DragOverlay,
   rectIntersection,
-  KeyboardSensor,
+  // KeyboardSensor,
   // PointerSensor,
   TouchSensor,
   useSensor,
@@ -63,10 +63,10 @@ export default function Dnd({ items, setItems }: Props) {
   const [activeItem, setActiveItem] = useState();
   const sensors = useSensors(
     // useSensor(PointerSensor),
-    useSensor(TouchSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
+    useSensor(TouchSensor)
+    // useSensor(KeyboardSensor, {
+    //   coordinateGetter: sortableKeyboardCoordinates,
+    // })
   );
 
   return (
