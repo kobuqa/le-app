@@ -77,7 +77,7 @@ export default function Decks() {
             animate="show"
             exit="exit"
             variants={containerMobile}
-            className="z-[1001] absolute top-0 left-0 w-screen h-full border-2 border-primary bg-black text-white p-4 flex flex-col"
+            className="z-[1001] absolute top-0 left-0 w-screen h-full border border-primary bg-black p-4 flex flex-col"
           >
             <button className="absolute top-2 right-2" onClick={onClose}>
               <VscClose />
