@@ -23,6 +23,7 @@ export default function Decks() {
   const saveDeck = (newDeck: Deck) => {
     if (typeof window !== "undefined") {
       localStorage.setItem("decks", JSON.stringify([...decks, newDeck]));
+      setDecks((p) => p.concat(newDeck));
     }
   };
 
