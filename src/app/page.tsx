@@ -3,9 +3,12 @@
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import { TextArea } from "@/components/textarea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
-import Head from "next/head";
+import { AddMenu } from "@/components/add-menu";
+import { useAppContext } from "./context";
+import { v4 as uuid } from "uuid";
+import { useSnackbar } from "notistack";
 
 const configuration = new Configuration({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
@@ -13,14 +16,21 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default function Home() {
-  const [context, setContext] = useState("What is love?");
-  const [word, setWord] = useState("love");
+  const [context, setContext] = useState("");
+  const [word, setWord] = useState("");
   const [translation, setTranslation] = useState("");
-  const [lang, setLang] = useState("russian");
   const [loading, setLoading] = useState(false);
+  const [creatable, setCreatable] = useState(false);
+  const { dispatch } = useAppContext();
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    setCreatable(() => loading || !translation);
+  }, [loading, translation]);
 
   const makeQuery = (ctx: string, wrd: string) =>
-    `Provide me an exact meaning of '${wrd}' in sentence: '${ctx} and translate the meaning to ${lang} language. Provide a sample of usage.`;
+    `Provide me short and exact meaning of '${wrd}' in sentence: '${ctx}. Provide a sample of usage.`;
+
   const translate = async () => {
     setLoading(true);
     try {
@@ -50,20 +60,33 @@ export default function Home() {
     }
   };
 
-  const save = () => {
-    const rawCards = localStorage.getItem("cards");
-    const cards = rawCards ? JSON.parse(rawCards) : [];
-    cards.push({ id: String(Math.random()), context, word, translation });
-    localStorage.setItem("cards", JSON.stringify(cards));
+  const save = (deckId: string) => {
+    dispatch({
+      type: "addToDeck",
+      payload: { deckId, card: { id: uuid(), context, translation, word } },
+    });
+
+    setContext("");
+    setWord("");
+    setTranslation("");
+    enqueueSnackbar("Card has been added.", {
+      variant: "success",
+      autoHideDuration: 2000,
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "right",
+      },
+    });
   };
 
   return (
     <section className="flex flex-col h-full overflow-hidden">
       <span className="text-center text-bold text-xl pb-4">Card Creation</span>
-      <div className="overflow-auto flex flex-col gap-3 h-full pb-4">
+      <div className="overflow-auto flex flex-col gap-6 h-full pb-4">
         <label className="flex flex-col">
           <span className="uppercase text-bold pb-1">Context</span>
           <TextArea
+            placeholder="Enter a context"
             rows={5}
             value={context}
             className="resize-none"
@@ -73,39 +96,32 @@ export default function Home() {
         <label className="flex flex-col">
           <span className="uppercase text-bold pb-1">Word/Phrase</span>
           <Input
+            placeholder="Enter a word"
             type="text"
             value={word}
             onChange={({ target: { value } }) => setWord(value)}
           />
         </label>
         <label className="flex flex-col">
-          <span className="uppercase text-bold pb-1"> Target Language</span>
-          <div className="flex gap-4">
-            <select
-              className="grow p-2 border border-slate-400 rounded-sm bg-transparent"
-              value={lang}
-              onChange={({ target: { value } }) => setLang(value)}
-            >
-              <option value="russian">Russian</option>
-              <option value="hebrew">Hebrew</option>
-            </select>
-            <Button onClick={translate} disabled={loading}>
-              Translate
-            </Button>
-          </div>
+          <Button onClick={translate} disabled={loading}>
+            Translate
+          </Button>
         </label>
         <label className="flex flex-col">
-          {loading ? (
-            <span>Translating...</span>
-          ) : (
-            <pre className="max-w-full whitespace-pre-wrap">{translation}</pre>
+          {loading && <span>Translating...</span>}
+          {!loading && (
+            <TextArea
+              rows={5}
+              className="resize-none"
+              placeholder="Translation will be here..."
+              value={translation}
+              onChange={({ target: { value } }) => setTranslation(value)}
+            />
           )}
         </label>
       </div>
 
-      <Button onClick={save} disabled={loading || !translation}>
-        Save as a Card
-      </Button>
+      <AddMenu disabled={creatable} onSave={save} />
     </section>
   );
 }

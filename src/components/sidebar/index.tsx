@@ -4,7 +4,6 @@ import { NavLink } from "../navlink";
 import Image from "next/image";
 import { RiAddBoxFill } from "react-icons/ri";
 import { HiSquare3Stack3D } from "react-icons/hi2";
-import { TbCards } from "react-icons/tb";
 export const SideBar = (props: any) => {
   return (
     <Menu {...props}>
@@ -13,10 +12,7 @@ export const SideBar = (props: any) => {
         <RiAddBoxFill />
         New Card
       </NavLink>
-      <NavLink path="/cards" onClick={props.close}>
-        <TbCards />
-        Cards
-      </NavLink>
+
       <NavLink path="/decks" onClick={props.close}>
         <HiSquare3Stack3D />
         Decks

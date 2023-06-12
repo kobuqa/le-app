@@ -12,6 +12,8 @@ body {
   height: 100svh;
   overflow: hidden;
   @apply bg-black text-white;
+  max-height: 768px;
+  min-height: 630px;
 }
 
 /* Individual item */
@@ -81,4 +83,34 @@ select {
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 768px) {
+  #page-wrap {
+    min-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+.deck::after {
+  content: " ";
+  border-top: 1px solid #31fbfbd7;
+  border-right: 1px solid #31fbfbd7;
+  border-radius: 3px;
+  width: 101%;
+  height: 101%;
+  position: absolute;
+  top: -4px;
+  right: -4px;
+}
+.deck::before {
+  content: " ";
+  border-top: 1px solid #31fbfbd7;
+  border-right: 1px solid #31fbfbd7;
+  border-radius: 3px;
+  width: 101%;
+  height: 101%;
+  position: absolute;
+  top: -7px;
+  right: -7px;
 }

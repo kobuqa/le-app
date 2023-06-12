@@ -4,15 +4,11 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
-import { useSwipeable } from "react-swipeable";
 import { SideBar } from "@/components/sidebar";
-
+import { AppContextProvider } from "./context";
+import { SnackbarProvider } from "notistack";
 const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata: Metadata = {
-//   title: "Twigo Learn",
-//   description: "Card Learning App",
-// };
 export default function RootLayout({
   children,
 }: {
@@ -35,29 +31,16 @@ export default function RootLayout({
       //@ts-ignore
       document.body.style.zoom = 1;
     });
-    document.title = "Twigo Learn";
+    document.title = "OpenAI Learn";
   }, []);
 
   const [isOpen, setOpen] = useState(false);
-  const handlers = useSwipeable({
-    trackMouse: true,
-    onSwipedRight: () => setOpen(true),
-  });
 
   const closeSideBar = () => setOpen(false);
 
   return (
     <html lang="en">
       <body className={clsx(`${inter.className}`, "flex flex-col")} id="App">
-        <div
-          {...handlers}
-          style={{
-            float: "left",
-            position: "fixed",
-            width: "8%",
-            height: "100%",
-          }}
-        />
         <SideBar
           isOpen={isOpen}
           onStateChange={(s: any) => setOpen(s.isOpen)}
@@ -66,7 +49,9 @@ export default function RootLayout({
           close={closeSideBar}
         />
         <main id="page-wrap" className="grow p-4 h-full overflow-auto">
-          {children}
+          <SnackbarProvider>
+            <AppContextProvider>{children}</AppContextProvider>
+          </SnackbarProvider>
         </main>
       </body>
     </html>

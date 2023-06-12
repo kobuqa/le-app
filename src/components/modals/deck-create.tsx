@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Input } from "@/components/input";
 import { VscClose } from "react-icons/vsc";
 import { Button } from "../button";
-import { Card } from "@/app/cards/page";
-import { FaArrowsAltH } from "react-icons/fa";
-import Dnd from "../dnd/dnd";
 import { Deck } from "@/app/decks/page";
+import { v4 as uuid } from "uuid";
 
 type Props = {
   open: boolean;
@@ -14,31 +12,18 @@ type Props = {
   onSave: (newDeck: Deck) => void;
 };
 export const DeckCreateModal = ({ open, onClose, onSave }: Props) => {
-  const [deckName, setDeckName] = useState("Untitled deck");
-  const [items, setItems] = useState<{ cards: Card[]; deck: Card[] }>({
-    cards: [],
-    deck: [],
-  });
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const cards = localStorage.getItem("cards");
-      if (cards) setItems((p) => ({ ...p, cards: JSON.parse(cards) }));
-    }
-  }, []);
+  const [deckName, setDeckName] = useState("");
 
   const containerMobile = {
-    hidden: { opacity: 0, y: "-100%" },
+    hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      y: 0,
       transition: {
         duration: 0.3,
       },
     },
     exit: {
       opacity: 0,
-      y: "100%",
       transition: {
         duration: 0.3,
       },
@@ -55,31 +40,29 @@ export const DeckCreateModal = ({ open, onClose, onSave }: Props) => {
           animate="show"
           exit="exit"
           variants={containerMobile}
-          className="z-[1001] absolute top-0 left-0 w-screen h-full bg-black p-6 flex flex-col gap-4"
+          className="z-[1001] border border-slate-400 rounded-sm  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4  bg-black p-6 flex flex-col gap-4"
         >
           <button className="absolute top-4 right-6" onClick={onClose}>
             <VscClose />
           </button>
-          <label>
-            Deck Name
+          <label className="uppercase  text-center">
+            New Deck
             <Input
+              placeholder="Provide a Deck Name"
               value={deckName}
               onChange={({ target: { value } }) => setDeckName(value)}
-              className="w-full"
+              className="w-full mt-4"
             />
           </label>
-          <div className="flex justify-around">
-            <span>Cards</span>
-            <span>Deck</span>
-          </div>
-          <Dnd items={items} setItems={setItems} />
+
           <Button
             onClick={() => {
               onSave({
-                id: String(Math.random()),
-                title: deckName,
-                cards: items.deck,
+                id: uuid(),
+                name: deckName,
+                cards: [],
               });
+              setDeckName("");
               onClose();
             }}
           >
