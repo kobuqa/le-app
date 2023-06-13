@@ -4,6 +4,7 @@ import { NavLink } from "../navlink";
 import Image from "next/image";
 import { RiAddBoxFill } from "react-icons/ri";
 import { HiSquare3Stack3D } from "react-icons/hi2";
+import { AiOutlineSync } from "react-icons/ai";
 export const SideBar = (props: any) => {
   return (
     <Menu {...props}>
@@ -16,6 +17,10 @@ export const SideBar = (props: any) => {
       <NavLink path="/decks" onClick={props.close}>
         <HiSquare3Stack3D />
         Decks
+      </NavLink>
+      <NavLink path="/sync" onClick={props.close} className="uppercase">
+        <AiOutlineSync />
+        Sync
       </NavLink>
     </Menu>
   );

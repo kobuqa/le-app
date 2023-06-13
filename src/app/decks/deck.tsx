@@ -78,27 +78,33 @@ export const Deck = ({ deck }: Props) => {
             </div>
           </div>
           <div className="z-10 flex justify-around items-center grow">
-            <Button
-              intent="icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                dispatch({
-                  type: "deleteDeck",
-                  payload: { deckId: deck.id },
-                });
-              }}
-            >
-              <MdDelete className="text-red-500 scale-150" />
-            </Button>
-            <Button
-              intent="icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                enableEdit();
-              }}
-            >
-              <MdOutlineEdit className="text-blue-500 scale-150" />
-            </Button>
+            {deck.name !== "Default Deck" && (
+              <>
+                <Button
+                  intent="icon"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch({
+                      type: "deleteDeck",
+                      payload: { deckId: deck.id },
+                    });
+                  }}
+                >
+                  <MdDelete className="text-red-500 scale-150" />
+                </Button>
+
+                <Button
+                  intent="icon"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    enableEdit();
+                  }}
+                >
+                  <MdOutlineEdit className="text-blue-500 scale-150" />
+                </Button>
+              </>
+            )}
+
             <Button intent="icon">
               <MdPlayCircle className="text-green-500 scale-150" />
             </Button>
