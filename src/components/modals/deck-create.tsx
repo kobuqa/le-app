@@ -40,12 +40,12 @@ export const DeckCreateModal = ({ open, onClose, onSave }: Props) => {
           animate="show"
           exit="exit"
           variants={containerMobile}
-          className="z-[1001] border border-slate-400 rounded-sm  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4  bg-black p-6 flex flex-col gap-4"
+          className="z-[1001] max-w-[20rem] border border-slate-400 rounded-sm  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4  bg-black p-6 flex flex-col gap-4"
         >
           <button className="absolute top-4 right-6" onClick={onClose}>
             <VscClose />
           </button>
-          <label className="uppercase  text-center">
+          <label className="uppercase text-center">
             New Deck
             <Input
               placeholder="Provide a Deck Name"

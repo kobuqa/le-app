@@ -25,6 +25,11 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       copy.decks.splice(deckToDeleteIndex, 1);
   }
 
+  if(action.type === 'renameDeck') {
+    const deck = copy.decks.find(({ id }) => id === action.payload.deckId);
+    if(deck) deck.name = action.payload.name;
+  }
+
   localStorage.setItem("state", JSON.stringify(copy));
 
   return copy;

@@ -21,6 +21,10 @@ export type DeleteDeckAction = {
   payload: { deckId: string };
 };
 
+export type RenameDeckAction = {
+  type: "renameDeck";
+  payload: {deckId: string, name: string}
+}
 export type SetStateAction = {
   type: "setState";
   payload: AppState;
@@ -30,7 +34,8 @@ export type AppAction =
   | AddDeckAction
   | AddToDeckAction
   | SetStateAction
-  | DeleteDeckAction;
+  | DeleteDeckAction
+  | RenameDeckAction
 
 export type AppDispatch = (action: AppAction) => void;
 
