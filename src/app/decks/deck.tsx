@@ -88,6 +88,14 @@ export const Deck = ({ deck }: Props) => {
                       type: "deleteDeck",
                       payload: { deckId: deck.id },
                     });
+                    enqueueSnackbar(`Deck ${deck.name} has been deleted.`, {
+                      variant: "success",
+                      autoHideDuration: 1000,
+                      anchorOrigin: {
+                        vertical: "top",
+                        horizontal: "right",
+                      },
+                    });
                   }}
                 >
                   <MdDelete className="text-red-500 scale-150" />
@@ -98,14 +106,6 @@ export const Deck = ({ deck }: Props) => {
                   onClick={(e) => {
                     e.stopPropagation();
                     enableEdit();
-                    enqueueSnackbar(`Deck ${deck.name} has been deleted.`, {
-                      variant: "success",
-                      autoHideDuration: 1000,
-                      anchorOrigin: {
-                        vertical: "top",
-                        horizontal: "right",
-                      },
-                    });
                   }}
                 >
                   <MdOutlineEdit className="text-blue-500 scale-150" />
