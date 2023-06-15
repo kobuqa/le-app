@@ -99,9 +99,7 @@ export const Card = ({ card, onRemove, onMove, direction }: Props) => {
                 It is so cold
               </span>
               <span className="text-lime-200 flex flex-col">
-                <span className="text-slate-300 text-xs">
-                  Example of usage:
-                </span>
+                <span className="text-slate-300 text-xs">Translation:</span>
                 Очень холодно
               </span>
             </>
