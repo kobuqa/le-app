@@ -36,7 +36,7 @@ export default function Home() {
       translate && `and translation to ${selectedLanguage}`
     }. Divide all ${
       translate ? "three" : "two"
-    } answers with dollar sign and avoid of usage \n in response.`;
+    } answers with dollar sign delimeter`;
 
   const process = async () => {
     setLoading(true);
