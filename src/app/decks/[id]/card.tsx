@@ -85,7 +85,7 @@ export const Card = ({ card, onRemove, onMove, direction }: Props) => {
             },
           },
         }}
-        className="bg-hex bg-[4rem] bg-[length:5rem] flex flex-col gap-4 w-full grow pt-4"
+        className="bg-hex bg-[4rem] bg-[length:5rem] flex flex-col gap-4 w-full grow pt-4 max-w-[30rem]"
         initial="hidden"
         animate="visible"
         exit="exit"

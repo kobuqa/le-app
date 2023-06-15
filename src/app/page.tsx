@@ -109,9 +109,11 @@ export default function Home() {
   };
 
   return (
-    <section className="flex flex-col h-full overflow-hidden">
-      <span className="text-center text-bold text-xl pb-4">Card Creation</span>
-      <div className="overflow-auto flex flex-col gap-6 h-full pb-4">
+    <section className="flex flex-col">
+      <span className="text-center text-bold text-xl pb-4 absolute top-0 left-0 bg-black py-4 w-full">
+        Card Creation
+      </span>
+      <div className="flex flex-col gap-6 h-full pb-4 pt-14">
         <label className="flex flex-col">
           <span className="uppercase text-bold pb-1">
             <span className="text-red-500 pr-2">*</span>Word/Phrase
@@ -203,9 +205,8 @@ export default function Home() {
             </div>
           )}
         </label>
+        <AddMenu disabled={creatable} onSave={save} />
       </div>
-
-      <AddMenu disabled={creatable} onSave={save} />
     </section>
   );
 }

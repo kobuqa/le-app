@@ -114,3 +114,23 @@ select {
   top: -7px;
   right: -7px;
 }
+html {
+  --scrollbarBG: transparent;
+  --thumbBG: rgba(67, 70, 86, 1);
+}
+*::-webkit-scrollbar {
+  width: 0.4rem;
+  height: 0.4rem;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+*::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG);
+  border-radius: 6px;
+  border: 1px solid var(--scrollbarBG);
+}
