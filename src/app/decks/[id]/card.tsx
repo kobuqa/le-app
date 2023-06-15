@@ -9,7 +9,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useParams } from "next/navigation";
 import { useAppContext } from "@/app/context";
 import { HiSpeakerWave } from "react-icons/hi2";
-import useSound from "use-sound";
 
 type Props = {
   direction: "left" | "right";
