@@ -48,7 +48,9 @@ export const Card = ({ card, onRemove, onMove, direction }: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editableMode]);
-  let audio = new Audio("https://lzg-prd-tmp.s3.amazonaws.com/test.mp3");
+  let audio = new Audio(
+    "https://storage.googleapis.com/kagglesdsdata/datasets/829978/1417968/harvard.wav?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=databundle-worker-v2%40kaggle-161607.iam.gserviceaccount.com%2F20230613%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20230613T083953Z&X-Goog-Expires=345600&X-Goog-SignedHeaders=host&X-Goog-Signature=9973b52df7d1bc00f3282d6bab4bce11c926c54949f2602ef9a154e632f3d3389deae33a4e14fee4b0e6d09587b8e4d7fb4d5014b9841e2439f130d6dde9ec019c00b3c09864f238d7c9405c51916e0e62b894816f96b443438b2f1104080490315bbe7e4cfe34bb455641416ac376888336034ed4cecb49ad00022d04fa7e2c58ef3b5029ce9f847aec552cf47b9f6e416c987f6173c24911264c8e8760081c59788e364bc565f23372a43e9088fd91d0fb58cbdab617ca6fc7940ee43c1762ce65cbc9f3c41e37f4ea58fea3845e20e981900d2c6d4fac14d93ffe7825584b1b70d217ddb6c55ad48ffc64badea18b9aa97036c391de07cc7ac12a33824dde"
+  );
 
   return (
     <AnimatePresence mode="wait">
