@@ -8,6 +8,8 @@ import { MoveCard } from "./move-card";
 import { AnimatePresence, motion } from "framer-motion";
 import { useParams } from "next/navigation";
 import { useAppContext } from "@/app/context";
+import { HiSpeakerWave } from "react-icons/hi2";
+import useSound from "use-sound";
 
 type Props = {
   direction: "left" | "right";
@@ -46,6 +48,7 @@ export const Card = ({ card, onRemove, onMove, direction }: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editableMode]);
+  let audio = new Audio("https://lzg-prd-tmp.s3.amazonaws.com/test.mp3");
 
   return (
     <AnimatePresence mode="wait">
@@ -131,6 +134,13 @@ export const Card = ({ card, onRemove, onMove, direction }: Props) => {
                   .split(" ")
                   .map((word) => word[0].toUpperCase() + word.slice(1))
                   .join(" ")}
+                <Button
+                  intent="icon"
+                  className="p-1 ml-5 text-white"
+                  onClick={() => audio.play()}
+                >
+                  <HiSpeakerWave />
+                </Button>
               </span>
               <div className="text-teal-400 text-lg text-center">
                 {card.context}
