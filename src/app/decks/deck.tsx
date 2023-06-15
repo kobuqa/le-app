@@ -79,40 +79,36 @@ export const Deck = ({ deck }: Props) => {
           </div>
           <div className="z-10 flex justify-around items-center grow">
             {deck.name !== "Default Deck" && (
-              <>
-                <Button
-                  intent="icon"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    dispatch({
-                      type: "deleteDeck",
-                      payload: { deckId: deck.id },
-                    });
-                    enqueueSnackbar(`Deck ${deck.name} has been deleted.`, {
-                      variant: "success",
-                      autoHideDuration: 1000,
-                      anchorOrigin: {
-                        vertical: "top",
-                        horizontal: "right",
-                      },
-                    });
-                  }}
-                >
-                  <MdDelete className="text-red-500 scale-150" />
-                </Button>
-
-                <Button
-                  intent="icon"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    enableEdit();
-                  }}
-                >
-                  <MdOutlineEdit className="text-blue-500 scale-150" />
-                </Button>
-              </>
+              <Button
+                intent="icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch({
+                    type: "deleteDeck",
+                    payload: { deckId: deck.id },
+                  });
+                  enqueueSnackbar(`Deck ${deck.name} has been deleted.`, {
+                    variant: "success",
+                    autoHideDuration: 1000,
+                    anchorOrigin: {
+                      vertical: "top",
+                      horizontal: "right",
+                    },
+                  });
+                }}
+              >
+                <MdDelete className="text-red-500 scale-150" />
+              </Button>
             )}
-
+            <Button
+              intent="icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                enableEdit();
+              }}
+            >
+              <MdOutlineEdit className="text-blue-500 scale-150" />
+            </Button>
             <Button intent="icon">
               <MdPlayCircle className="text-green-500 scale-150" />
             </Button>
