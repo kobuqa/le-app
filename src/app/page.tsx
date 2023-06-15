@@ -32,7 +32,7 @@ export default function Home() {
   }, [loading, translation]);
 
   const makeQuery = (ctx: string, wrd: string) =>
-    `Given: word - '${wrd}' and context - '${ctx}. Provide me an explanation, an example of usage ${
+    `Given: word - '${wrd}' and context - '${ctx}. Provide me a short explanation, an example of usage ${
       translate && `and translation of ${wrd} to ${selectedLanguage}`
     }. Divide all ${
       translate ? "three" : "two"
