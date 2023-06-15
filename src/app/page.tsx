@@ -32,8 +32,8 @@ export default function Home() {
   }, [loading, translation]);
 
   const makeQuery = (ctx: string, wrd: string) =>
-    `Given: word - '${wrd}' and context - '${ctx}. Provide me an examplanation, an examples of usage ${
-      translate && `and translation to ${selectedLanguage}`
+    `Given: word - '${wrd}' and context - '${ctx}. Provide me an explanation, an example of usage ${
+      translate && `and translation of ${wrd} to ${selectedLanguage}`
     }. Divide all ${
       translate ? "three" : "two"
     } answers with dollar sign delimeter`;
