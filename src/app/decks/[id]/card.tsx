@@ -130,14 +130,14 @@ export const Card = ({ card, onRemove, onMove, direction }: Props) => {
             </div>
           ) : (
             <>
-              <span className=" text-teal-400 text-center text-2xl font-bold">
+              <span className=" text-teal-400 text-center text-2xl font-bold relative">
                 {card.word
                   .split(" ")
                   .map((word) => word[0].toUpperCase() + word.slice(1))
                   .join(" ")}
                 <Button
                   intent="icon"
-                  className="p-1 ml-5 text-white"
+                  className="p-1 text-white absolute ml-2 mt-[2px]"
                   onClick={() => audio.play()}
                 >
                   <HiSpeakerWave />
