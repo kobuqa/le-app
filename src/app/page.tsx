@@ -24,14 +24,21 @@ export default function Home() {
   const { dispatch } = useAppContext();
   const { enqueueSnackbar } = useSnackbar();
 
+  const [translate, setTranslate] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("hebrew");
+
   useEffect(() => {
     setCreatable(() => loading || !translation);
   }, [loading, translation]);
 
   const makeQuery = (ctx: string, wrd: string) =>
-    `Given: word - '${wrd}' and context - '${ctx}. Provide me an examplanation, an examples of usage and translation to russian. Divide all three answers with dollar sign and avoid of usage \n in response.`;
+    `Given: word - '${wrd}' and context - '${ctx}. Provide me an examplanation, an examples of usage ${
+      translate && `and translation to ${selectedLanguage}`
+    }. Divide all ${
+      translate ? "three" : "two"
+    } answers with dollar sign and avoid of usage \n in response.`;
 
-  const translate = async () => {
+  const process = async () => {
     setLoading(true);
     try {
       const {
@@ -105,18 +112,34 @@ export default function Home() {
             onChange={({ target: { value } }) => setWord(value)}
           />
         </label>
+        <label className="flex gap-2 items-center">
+          Translate
+          <input
+            type="checkbox"
+            checked={translate}
+            onChange={({ target }) => setTranslate(target.checked)}
+          />
+          <select
+            className="grow p-1 bg-black border border-slate-400 rounded-sm text-slate-400"
+            value={selectedLanguage}
+            onChange={(e) => setSelectedLanguage(e.target.value)}
+          >
+            <option value="hebrew">Hebrew</option>
+            <option value="russian">Russian</option>
+          </select>
+        </label>
         <label className="flex flex-col">
-          <Button onClick={translate} disabled={loading}>
-            Translate
+          <Button onClick={process} disabled={loading}>
+            Process
           </Button>
         </label>
         <label className="flex flex-col">
-          {loading && <span>Translating...</span>}
+          {loading && <span>Processing...</span>}
           {!loading && (
             <TextArea
               rows={5}
               className="resize-none"
-              placeholder="Translation will be here..."
+              placeholder="Result will be here..."
               value={translation}
               onChange={({ target: { value } }) => setTranslation(value)}
             />
