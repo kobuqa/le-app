@@ -47,7 +47,10 @@ export default function Home() {
       });
       const [response] = choices;
 
-      if (response.text) setTranslation(response.text.replaceAll("\n", ""));
+      if (response.text)
+        setTranslation(
+          response.text.replaceAll("\n", "").split("$").join("\n")
+        );
       setLoading(false);
     } catch (error: any) {
       setLoading(false);
