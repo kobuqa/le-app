@@ -49,7 +49,7 @@ export const Card = ({ card, onRemove, onMove, direction }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editableMode]);
   let audio = new Audio(
-    "https://lzg-prd-tmp.s3.amazonaws.com/4EcpXML443Ddsg8F3gUntB.mp3"
+    "https://lzg-prd-tmp.s3.amazonaws.com/QPVFqpL4P3F73oMitFbDxL.mp3"
   );
 
   return (
