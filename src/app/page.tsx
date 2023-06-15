@@ -29,7 +29,7 @@ export default function Home() {
   }, [loading, translation]);
 
   const makeQuery = (ctx: string, wrd: string) =>
-    `Provide me an explanation of '${wrd}' in sentence: '${ctx}. Provide a sample of usage. Provide a translation to russian.`;
+    `Given: word - '${wrd}' and context - '${ctx}. Provide me an examplanation, an examples of usage and translation to russian. Divide all three answers with newlines.`;
 
   const translate = async () => {
     setLoading(true);
