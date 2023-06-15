@@ -23,6 +23,7 @@ export const Card = ({ card, onRemove, onMove, direction }: Props) => {
   const [editableMode, setEditableMode] = useState(false);
 
   const toggleEditable = () => setEditableMode((p) => !p);
+  const res = card.translation.split("\n");
 
   return (
     <AnimatePresence mode="wait">
@@ -89,19 +90,21 @@ export const Card = ({ card, onRemove, onMove, direction }: Props) => {
               </span>
               <div className="text-cyan-400 text-lg">{card.context}</div>
               <span className="text-amber-200 flex flex-col">
-                <span className="text-slate-300 text-xs">Explanation:</span>
-                Very cold
+                {/* <span className="text-slate-300 text-xs">Explanation:</span> */}
+                {res[0].split("Explanation: ")}
               </span>
               <span className="text-purple-300 flex flex-col">
-                <span className="text-slate-300 text-xs">
+                {/* <span className="text-slate-300 text-xs">
                   Example of usage:
+                </span> */}
+                {res[1]}
+              </span>
+              {res[2] && (
+                <span className="text-lime-200 flex flex-col">
+                  {/* <span className="text-slate-300 text-xs">Translation:</span> */}
+                  {res[2]}
                 </span>
-                It is so cold
-              </span>
-              <span className="text-lime-200 flex flex-col">
-                <span className="text-slate-300 text-xs">Translation:</span>
-                Очень холодно
-              </span>
+              )}
             </>
           )}
         </div>
