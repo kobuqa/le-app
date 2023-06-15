@@ -18,7 +18,9 @@ export type Card = {
   id: string;
   context: string;
   word: string;
+  explanation: string;
   translation: string;
+  usage: string;
 };
 
 export default function Decks() {

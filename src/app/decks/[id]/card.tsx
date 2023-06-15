@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { type Card as CardType } from "../page";
 import { Input } from "@/components/input";
 import { TextArea } from "@/components/textarea";
@@ -6,6 +6,8 @@ import { Button } from "@/components/button";
 import { MdDelete, MdOutlineEdit } from "react-icons/md";
 import { MoveCard } from "./move-card";
 import { AnimatePresence, motion } from "framer-motion";
+import { useParams } from "next/navigation";
+import { useAppContext } from "@/app/context";
 
 type Props = {
   direction: "left" | "right";
@@ -19,11 +21,31 @@ type Props = {
   }) => void;
 };
 export const Card = ({ card, onRemove, onMove, direction }: Props) => {
+  const { id } = useParams();
+  const { dispatch } = useAppContext();
   const [duplicateMode, setDuplicateMode] = useState(false);
   const [editableMode, setEditableMode] = useState(false);
 
+  const [explanation, setExplanation] = useState(() => card.explanation);
+  const [translation, setTranslation] = useState(() => card.translation);
+  const [usage, setUsage] = useState(() => card.usage);
+  const [context, setContext] = useState(() => card.context);
+  const [word, setWord] = useState(() => card.word);
+
   const toggleEditable = () => setEditableMode((p) => !p);
-  const res = card.translation.split("\n");
+
+  useEffect(() => {
+    if (!editableMode) {
+      dispatch({
+        type: "updateCard",
+        payload: {
+          card: { ...card, explanation, translation, context, word, usage },
+          deckId: id,
+        },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editableMode]);
 
   return (
     <AnimatePresence mode="wait">
@@ -64,47 +86,73 @@ export const Card = ({ card, onRemove, onMove, direction }: Props) => {
         animate="visible"
         exit="exit"
       >
-        <div className="grow flex flex-col gap-4">
+        <div className="grow flex flex-col">
           {editableMode ? (
-            <>
-              <Input className="text-white" disabled value={card.word} />
-
+            <div className="flex flex-col gap-4">
+              <Input
+                placeholder="Word"
+                value={word}
+                className="text-white"
+                onChange={({ target }) => setWord(target.value)}
+              />
+              <TextArea
+                placeholder="Context"
+                className="text-white"
+                rows={3}
+                disabled
+                value={context}
+                onChange={({ target }) => setContext(target.value)}
+              />
               <TextArea
                 className="text-white"
-                rows={4}
+                rows={3}
                 disabled
-                value={card.context}
+                value={explanation}
+                onChange={({ target }) => setExplanation(target.value)}
               />
-
               <TextArea
                 className="text-white"
-                rows={4}
+                rows={3}
                 disabled
-                value={card.translation}
+                value={usage}
+                onChange={({ target }) => setUsage(target.value)}
               />
-            </>
+              <Input
+                className="text-white"
+                disabled
+                value={translation}
+                onChange={({ target }) => setTranslation(target.value)}
+              />
+            </div>
           ) : (
             <>
-              <span className="uppercase text-teal-400 text-center text-xl">
-                `{card.word}`
+              <span className=" text-teal-400 text-center text-2xl font-bold">
+                {card.word
+                  .split(" ")
+                  .map((word) => word[0].toUpperCase() + word.slice(1))
+                  .join(" ")}
               </span>
-              <div className="text-cyan-400 text-lg">{card.context}</div>
-              <span className="text-amber-200 flex flex-col">
-                {/* <span className="text-slate-300 text-xs">Explanation:</span> */}
-                {res[0].split("Explanation: ")}
-              </span>
-              <span className="text-purple-300 flex flex-col">
-                {/* <span className="text-slate-300 text-xs">
-                  Example of usage:
-                </span> */}
-                {res[1]}
-              </span>
-              {res[2] && (
-                <span className="text-lime-200 flex flex-col">
-                  {/* <span className="text-slate-300 text-xs">Translation:</span> */}
-                  {res[2]}
+              <div className="text-teal-400 text-lg text-center">
+                {card.context}
+              </div>
+              <div className="flex flex-col gap-4 mt-8">
+                <span className="text-amber-200 flex flex-col">
+                  <span className="text-slate-300 text-xs">Explanation</span>
+                  {card.explanation}
                 </span>
-              )}
+                <span className="text-purple-300 flex flex-col">
+                  <span className="text-slate-300 text-xs">
+                    Example of usage
+                  </span>
+                  {card.usage}
+                </span>
+                {card.translation && (
+                  <span className="text-lime-200 flex flex-col">
+                    <span className="text-slate-300 text-xs">Translation</span>
+                    {card.translation}
+                  </span>
+                )}
+              </div>
             </>
           )}
         </div>

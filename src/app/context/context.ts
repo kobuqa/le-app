@@ -16,6 +16,14 @@ export type AddToDeckAction = {
   };
 };
 
+export type UpdateCardAction = {
+  type: "updateCard";
+  payload: {
+    deckId: string;
+    card: Card;
+  };
+};
+
 export type DeleteDeckAction = {
   type: "deleteDeck";
   payload: { deckId: string };
@@ -23,17 +31,22 @@ export type DeleteDeckAction = {
 
 export type RenameDeckAction = {
   type: "renameDeck";
-  payload: {deckId: string, name: string}
-}
+  payload: { deckId: string; name: string };
+};
 export type RemoveCardFromDeckAction = {
   type: "removeCardFromDeck";
-  payload: { deckId: string, cardId: string}
-}
+  payload: { deckId: string; cardId: string };
+};
 
 export type MoveCardAction = {
   type: "moveCard";
-  payload: { deckFromId: string, deckToId: string; cardId: string; duplicate: boolean}
-}
+  payload: {
+    deckFromId: string;
+    deckToId: string;
+    cardId: string;
+    duplicate: boolean;
+  };
+};
 export type SetStateAction = {
   type: "setState";
   payload: AppState;
@@ -47,6 +60,7 @@ export type AppAction =
   | RenameDeckAction
   | RemoveCardFromDeckAction
   | MoveCardAction
+  | UpdateCardAction;
 
 export type AppDispatch = (action: AppAction) => void;
 
