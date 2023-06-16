@@ -72,6 +72,14 @@ export default function Home() {
         if (translation) setTranslation(translation.replace(".", ""));
       }
 
+      const voiceOverLink = await fetch(
+        "https://sd3q4ri47moj2uevq4adokyddi0lwduy.lambda-url.us-east-1.on.aws/",
+        {
+          method: "POST",
+          body: JSON.stringify({ text: word }),
+        }
+      );
+      console.log(voiceOverLink);
       setLoading(false);
     } catch (error: any) {
       setLoading(false);
@@ -154,7 +162,7 @@ export default function Home() {
         </label>
         <label className="flex flex-col">
           <Button onClick={process} disabled={loading}>
-            Process
+            Translate
           </Button>
         </label>
         <label className="flex flex-col">
